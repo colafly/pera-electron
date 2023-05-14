@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Suggestions</title>
+    <style>
+      .text-div {
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-bottom: 10px;
+        font-size: 16px;
+        line-height: 1.4;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="json-array"></div>
+    <script>
+      const { ipcRenderer } = require('electron')
+
+      renderArray = (arr) => {
+        return (
+          `<div>
+            ${arr.map(t => `<div class='text-div'>${t.text}</div>`).join('')}
+          </div>`
+        );   
+      }
+
+
+      ipcRenderer.on('json-array', (event, arr) => {
+        const jsonArrayDiv = document.getElementById('json-array')
+        jsonArrayDiv.innerHTML = renderArray(arr)
+      })
+    </script>
+  </body>
+</html>
