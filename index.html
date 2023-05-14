@@ -19,10 +19,15 @@
     <script>
       const { ipcRenderer } = require('electron')
 
+      // function to send text back to main thread
+      sendText = (text) => {
+        ipcRenderer.send('text', text)
+      }
+
       renderArray = (arr) => {
         return (
           `<div>
-            ${arr.map(t => `<div class='text-div'>${t.text}</div>`).join('')}
+            ${arr.map(t => `<div class='text-div' onclick='sendText("${t.text}")'>${t.text}</div>`).join('')}
           </div>`
         );   
       }
