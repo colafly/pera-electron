@@ -47,7 +47,6 @@ app.whenReady().then(() => {
 
       // Handle the response
       request.on('response', (response) => {
-        response.setEncoding('utf-8')
         response.on('data', (chunk) => {
           var arr = JSON.parse(chunk)
           const menu = new Menu()
