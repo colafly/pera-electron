@@ -5,7 +5,9 @@ var robot = require("robotjs")
 const path = require('path')
 const {
   BrowserWindow,
-  ipcMain
+  ipcMain,
+  Menu,
+  MenuItem
 } = require("electron");
 
 app.whenReady().then(() => {
@@ -17,20 +19,10 @@ app.whenReady().then(() => {
       preload: path.join(__dirname, 'preload.js')
     }
   });
-
   win.loadFile("index.html");
   win.hide();
   win.once ('closed', () => { win = null; });
   win.on ('blur', () => { win.hide (); });
-
-  // listen for the 'text' event from the HTML file
-  ipcMain.on('text', (event, text) => {
-    // update the text in the main process
-    app.hide();
-    setTimeout(() => {
-      robot.typeStringDelayed(text, 800)
-    }, 300)
-  });
 
   globalShortcut.register('CommandOrControl+Shift+S', () => {
     robot.keyTap('c', 'command')
@@ -58,10 +50,22 @@ app.whenReady().then(() => {
         response.setEncoding('utf-8')
         response.on('data', (chunk) => {
           var arr = JSON.parse(chunk)
-          win.show();
-          win.webContents.send('json-array', arr);
+          const menu = new Menu()
+          for (let i = 0; i < arr.length; i++) {
+            const menuItem = new MenuItem({
+              label: arr[i].text,
+              click: () => {
+                // Do something when the menu item is clicked.
+                setTimeout(() => {
+                  robot.typeStringDelayed(arr[i].text, 1200)
+                }, 200)
+              }
+            });
+            menu.append(menuItem)
+          }
+          menu.popup();
           
-          // Alternative: Doing in-line replacement instead
+          // Alternative: Consider doing in-line replacement instead when text is too long
           // robot.typeStringDelayed(arr[i]['text'], 800)
           // var len = arr.length
           // var i = 0 
