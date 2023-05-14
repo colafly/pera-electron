@@ -59,11 +59,8 @@ app.whenReady().then(() => {
         response.on('data', (chunk) => {
           var arr = JSON.parse(chunk)
           win.show();
-          if (len(arr) > 3) {
-            win.webContents.send('json-array', arr.subarray(0,2));
-          } else {
-            win.webContents.send('json-array', arr);
-          }
+          win.webContents.send('json-array', arr);
+          
           // Alternative: Doing in-line replacement instead
           // robot.typeStringDelayed(arr[i]['text'], 800)
           // var len = arr.length
