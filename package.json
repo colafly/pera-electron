@@ -1,13 +1,27 @@
 {
   "name": "pera",
-  "version": "1.0.0",
-  "description": "electron app for pera",
+  "version": "0.1.0",
+  "description": "electron app for pera rewrite",
   "main": "main.js",
   "scripts": {
-    "start": "electron-forge start",
+    "start": "electron .",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "package": "electron-forge package",
-    "make": "electron-forge make"
+    "package": "electron-builder -mwl",
+    "postinstall": "electron-builder install-app-deps",
+    "make": "electron-builder build"
+  },
+  "build": {
+    "appId": "school.pera",
+    "copyright": "Copyright pera.school",
+    "mac": {
+      "category": "public.app-category.productivity"
+    },
+    "win": {
+      "target": "zip"
+    },
+    "linux": {
+      "category": "Utility"
+    }
   },
   "repository": {
     "type": "git",
@@ -20,13 +34,8 @@
   },
   "homepage": "https://github.com/colafly/pera-electron#readme",
   "devDependencies": {
-    "@electron-forge/cli": "^6.1.1",
-    "@electron-forge/maker-deb": "^6.1.1",
-    "@electron-forge/maker-rpm": "^6.1.1",
-    "@electron-forge/maker-squirrel": "^6.1.1",
-    "@electron-forge/maker-zip": "^6.1.1",
     "electron": "^24.2.0",
-    "electron-rebuild": "^3.2.9"
+    "electron-builder": "^23.6.0"
   },
   "dependencies": {
     "axios": "^1.4.0",
