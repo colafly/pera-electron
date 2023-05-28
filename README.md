@@ -1,4 +1,4 @@
-npm i robotjs
-npm i -D electron-rebuild
-npm install -g node-gyp
-npx electron-rebuild -f -t prod,optional,dev -w robotjs
+Quick English rewrite tool on your desktop 
+
+Please checkout for details and latest updates:
+https://pera.school/
