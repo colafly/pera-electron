@@ -1,6 +1,6 @@
 {
   "name": "pera",
-  "version": "0.1.0",
+  "version": "0.0.8",
   "description": "electron app for pera rewrite",
   "main": "main.js",
   "scripts": {
@@ -8,11 +8,15 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "package": "electron-builder -mwl",
     "postinstall": "electron-builder install-app-deps",
+    "release": "electron-builder -m --publish onTagOrDraft",
     "make": "electron-builder build"
   },
   "build": {
     "appId": "school.pera",
     "copyright": "Copyright pera.school",
+    "publish": {
+      "provider": "github"
+    },
     "mac": {
       "category": "public.app-category.productivity"
     },
@@ -39,7 +43,9 @@
   },
   "dependencies": {
     "axios": "^1.4.0",
+    "electron-log": "^4.4.8",
     "electron-squirrel-startup": "^1.0.0",
+    "electron-updater": "^5.3.0",
     "robotjs": "^0.6.0"
   }
 }

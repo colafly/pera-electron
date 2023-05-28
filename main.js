@@ -3,6 +3,7 @@ const { clipboard } = require('electron')
 const { net } = require('electron')
 var robot = require("robotjs")
 const path = require('path')
+const updater = require('./updater')
 const {
   BrowserWindow,
   ipcMain,
@@ -11,6 +12,10 @@ const {
 } = require("electron");
 
 app.whenReady().then(() => {
+
+  // Check for update
+  setTimeout(updater, 3000)
+
   let win = new BrowserWindow({
     frame: false,
     webPreferences: {
